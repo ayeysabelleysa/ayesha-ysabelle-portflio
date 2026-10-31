@@ -1,0 +1,117 @@
+{
+  "light": {
+    "color": {
+      "bg": { "value": "#FBE6E8", "type": "color", "description": "Page background" },
+      "glow": { "value": "#FFF6F6", "type": "color", "description": "Top-of-page glow" },
+      "card": { "value": "#FFFAFA", "type": "color", "description": "Card surface" },
+      "cloud": { "value": "#F2C4CD", "type": "color", "description": "Ticker band, clover highlight" },
+      "rose": { "value": "#D9587F", "type": "color", "description": "Accents, icons, dots" },
+      "roseStrong": { "value": "#B93E68", "type": "color", "description": "Eyebrows, primary button" },
+      "ink": { "value": "#4F281F", "type": "color", "description": "Body text" },
+      "gold": { "value": "#C9A27E", "type": "color", "description": "Sparkle gold" },
+      "navy": { "value": "#051F45", "type": "color", "description": "Deep tone" },
+      "slate": { "value": "#334A78", "type": "color", "description": "Muted blue text" },
+      "line": { "value": "#4F281F24", "type": "color", "description": "1px borders, 14% ink" },
+      "roseTint": { "value": "#D9587F26", "type": "color", "description": "Icon disc, 15% rose" },
+      "white70": { "value": "#FFFFFFB3", "type": "color", "description": "Key highlight" }
+    }
+  },
+  "dark": {
+    "color": {
+      "bg": { "value": "#051F45", "type": "color" },
+      "glow": { "value": "#0C2D5E", "type": "color" },
+      "card": { "value": "#0B2B5B", "type": "color" },
+      "cloud": { "value": "#F2C4CD", "type": "color" },
+      "rose": { "value": "#FF86A9", "type": "color" },
+      "roseStrong": { "value": "#FF86A9", "type": "color" },
+      "ink": { "value": "#FBE6E8", "type": "color" },
+      "gold": { "value": "#C9A27E", "type": "color" },
+      "navy": { "value": "#051F45", "type": "color" },
+      "slate": { "value": "#A9BEEA", "type": "color" },
+      "line": { "value": "#FBE6E833", "type": "color", "description": "20% ink" },
+      "roseTint": { "value": "#D9587F26", "type": "color" },
+      "white70": { "value": "#FFFFFFB3", "type": "color" }
+    }
+  },
+  "radius": {
+    "pill": { "value": "999", "type": "borderRadius" },
+    "key": { "value": "46", "type": "borderRadius" },
+    "card": { "value": "40", "type": "borderRadius" },
+    "project": { "value": "28", "type": "borderRadius" },
+    "photo": { "value": "26", "type": "borderRadius" },
+    "edu": { "value": "24", "type": "borderRadius" },
+    "field": { "value": "22", "type": "borderRadius" },
+    "tkey": { "value": "16", "type": "borderRadius" }
+  },
+  "space": {
+    "xxs": { "value": "6", "type": "spacing" },
+    "xs": { "value": "8", "type": "spacing" },
+    "sm": { "value": "10", "type": "spacing" },
+    "md": { "value": "12", "type": "spacing" },
+    "lg": { "value": "14", "type": "spacing" },
+    "xl": { "value": "18", "type": "spacing" },
+    "2xl": { "value": "22", "type": "spacing" },
+    "3xl": { "value": "26", "type": "spacing" },
+    "4xl": { "value": "32", "type": "spacing" },
+    "5xl": { "value": "40", "type": "spacing" },
+    "6xl": { "value": "56", "type": "spacing" },
+    "section": { "value": "64", "type": "spacing" },
+    "gutter": { "value": "32", "type": "spacing" }
+  },
+  "font": {
+    "family": {
+      "sans": { "value": "Manrope", "type": "fontFamilies" },
+      "serif": { "value": "Bricolage Grotesque", "type": "fontFamilies" }
+    },
+    "size": {
+      "hero": { "value": "112", "type": "fontSizes" },
+      "kicker": { "value": "28.8", "type": "fontSizes" },
+      "section": { "value": "51.2", "type": "fontSizes" },
+      "subheading": { "value": "33.6", "type": "fontSizes" },
+      "statement": { "value": "38.4", "type": "fontSizes" },
+      "cardTitle": { "value": "27.2", "type": "fontSizes" },
+      "cardTitleSmall": { "value": "25.6", "type": "fontSizes" },
+      "body": { "value": "16", "type": "fontSizes" },
+      "cardBody": { "value": "15.2", "type": "fontSizes" },
+      "feature": { "value": "14.4", "type": "fontSizes" },
+      "eyebrow": { "value": "13.6", "type": "fontSizes" },
+      "key": { "value": "13.1", "type": "fontSizes" },
+      "nav": { "value": "12.8", "type": "fontSizes" },
+      "chip": { "value": "12.5", "type": "fontSizes" },
+      "micro": { "value": "9.6", "type": "fontSizes" }
+    }
+  },
+  "shadow": {
+    "card": {
+      "type": "boxShadow",
+      "value": { "x": "0", "y": "18", "blur": "40", "spread": "-20", "color": "rgba(150, 60, 90, 0.35)", "type": "dropShadow" }
+    },
+    "cardDark": {
+      "type": "boxShadow",
+      "value": { "x": "0", "y": "18", "blur": "40", "spread": "-20", "color": "rgba(0, 0, 0, 0.6)", "type": "dropShadow" }
+    },
+    "photo": {
+      "type": "boxShadow",
+      "value": [
+        { "x": "0", "y": "24", "blur": "44", "spread": "-30", "color": "rgba(150, 60, 90, 0.45)", "type": "dropShadow" },
+        { "x": "8", "y": "8", "blur": "0", "spread": "-2", "color": "rgba(217, 88, 127, 0.16)", "type": "dropShadow" }
+      ]
+    },
+    "button": {
+      "type": "boxShadow",
+      "value": { "x": "0", "y": "8", "blur": "20", "spread": "-8", "color": "rgba(185, 62, 104, 0.9)", "type": "dropShadow" }
+    },
+    "fieldHover": {
+      "type": "boxShadow",
+      "value": { "x": "0", "y": "16", "blur": "30", "spread": "-22", "color": "rgba(150, 60, 90, 0.6)", "type": "dropShadow" }
+    },
+    "key": {
+      "type": "boxShadow",
+      "value": [
+        { "x": "0", "y": "2", "blur": "0", "spread": "0", "color": "rgba(255, 255, 255, 0.7)", "type": "innerShadow" },
+        { "x": "0", "y": "5", "blur": "0", "spread": "0", "color": "#D79BAA", "type": "dropShadow" },
+        { "x": "0", "y": "10", "blur": "14", "spread": "0", "color": "rgba(120, 50, 70, 0.16)", "type": "dropShadow" }
+      ]
+    }
+  }
+}

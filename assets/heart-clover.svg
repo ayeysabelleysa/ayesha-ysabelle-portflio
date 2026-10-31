@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="Heart clover">
+  <g fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path id="leaf-1" d="M110 111 C78 107 72 79 82 62 C92 45 116 55 110 111Z"/>
+    <path id="leaf-2" d="M110 111 C142 107 148 79 138 62 C128 45 104 55 110 111Z"/>
+    <path id="leaf-3" d="M110 111 C78 115 72 143 82 160 C92 177 116 167 110 111Z"/>
+    <path id="leaf-4" d="M110 111 C142 115 148 143 138 160 C128 177 104 167 110 111Z"/>
+    <path id="stem" d="M110 112 C110 145 110 170 110 188"/>
+  </g>
+</svg>
