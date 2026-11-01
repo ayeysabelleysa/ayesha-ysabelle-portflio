@@ -1052,11 +1052,12 @@ h2 {
 
 .project-lightbox {
   position: fixed;
+  box-sizing: border-box;
   width: min(94vw, 1280px);
   max-width: none;
-  max-height: 92vh;
+  max-height: min(92vh, 92dvh);
   padding: 0;
-  overflow: visible;
+  overflow: auto;
   border: 0;
   border-radius: 22px;
   background: transparent;
@@ -1071,7 +1072,7 @@ h2 {
 .project-lightbox img {
   display: block;
   width: 100%;
-  max-height: 88vh;
+  max-height: min(88vh, 88dvh);
   border-radius: 22px;
   background: var(--card);
   object-fit: contain;
@@ -1080,22 +1081,30 @@ h2 {
 
 .lightbox-close {
   position: absolute;
-  top: -14px;
-  right: -14px;
-  z-index: 1;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
   display: grid;
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: var(--card);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, .18);
+  background: color-mix(in srgb, var(--card) 92%, transparent);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .28);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1.6rem;
   place-items: center;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: background .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.lightbox-close:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .34);
+  transform: scale(1.06);
 }
 
 /* 7. About ----------------------------------------------------------------- */
@@ -1501,9 +1510,54 @@ h2 {
   color: var(--gold);
 }
 
-.is-glowing {
-  filter: drop-shadow(0 0 12px color-mix(in srgb, var(--rose) 78%, transparent));
-  transition: filter .2s ease;
+.cover-clover {
+  position: relative;
+  isolation: isolate;
+  --glow-opacity: 0;
+  --glow-spread: 10px;
+}
+
+.cover-clover::before {
+  position: absolute;
+  z-index: -1;
+  inset: -10px;
+  border-radius: 34px;
+  background: radial-gradient(ellipse, color-mix(in srgb, var(--rose) 48%, transparent), transparent 70%);
+  content: "";
+  opacity: var(--glow-opacity);
+  filter: blur(var(--glow-spread));
+  pointer-events: none;
+  transition: opacity 480ms ease, filter 600ms ease;
+}
+
+.cover-clover.is-glowing {
+  --glow-opacity: .9;
+  --glow-spread: 16px;
+}
+
+.say a {
+  position: relative;
+  isolation: isolate;
+  --glow-opacity: 0;
+  --glow-spread: 8px;
+}
+
+.say a::before {
+  position: absolute;
+  z-index: -1;
+  inset: -8px;
+  border-radius: 20px;
+  background: radial-gradient(ellipse, color-mix(in srgb, var(--rose) 44%, transparent), transparent 70%);
+  content: "";
+  opacity: var(--glow-opacity);
+  filter: blur(var(--glow-spread));
+  pointer-events: none;
+  transition: opacity 480ms ease, filter 600ms ease;
+}
+
+.say a.is-glowing {
+  --glow-opacity: .9;
+  --glow-spread: 13px;
 }
 
 .sparkle svg {

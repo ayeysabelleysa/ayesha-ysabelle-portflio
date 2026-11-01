@@ -80,7 +80,7 @@ function sparkleFeedback(host, options) {
   void host.offsetWidth;
   host.classList.add("is-glowing");
   window.clearTimeout(glowTimers.get(host));
-  glowTimers.set(host, window.setTimeout(() => host.classList.remove("is-glowing"), 850));
+  glowTimers.set(host, window.setTimeout(() => host.classList.remove("is-glowing"), 1200));
 
   burstSparkles(host, options);
 }
