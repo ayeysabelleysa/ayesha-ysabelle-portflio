@@ -1042,6 +1042,9 @@ h2 {
 }
 
 .project-arrow {
+  width: 16px;
+  height: 16px;
+  flex: none;
   display: inline-block;
   transition: transform .2s ease;
 }
