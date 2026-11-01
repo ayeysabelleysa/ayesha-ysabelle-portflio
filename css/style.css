@@ -1854,12 +1854,27 @@ h2 {
     transform: translate(var(--sx), var(--sy)) scale(.8);
   }
 
-  .cover-clover:hover img {
-    animation: none !important;
+  .logo img {
+    animation: clover-drift 12s ease-in-out infinite !important;
   }
 
-  .cover-clover.is-clicked img {
-    animation: none !important;
+  .cover-clover:hover:not(.is-pressed) img {
+    animation: clover-wiggle-reduced 900ms ease-in-out infinite alternate !important;
+  }
+
+  #cover-clover.is-clicked img {
+    animation: clover-tap-reduced 360ms ease-out !important;
+  }
+
+  @keyframes clover-wiggle-reduced {
+    from { transform: rotate(-2deg) scale(1.02); }
+    to { transform: rotate(2deg) scale(1.04); }
+  }
+
+  @keyframes clover-tap-reduced {
+    0% { transform: scale(1) rotate(0); }
+    55% { transform: scale(1.08) rotate(4deg); }
+    100% { transform: scale(1) rotate(0); }
   }
 
   .keycap-sparkle {
@@ -1875,16 +1890,9 @@ h2 {
     transform: none;
   }
 
-  /* Same deal as the ticker: the clover keeps a slow drift instead of freezing.
-     The wiggle is decoration, so it stops. */
-  .logo img {
-    animation: clover-drift 16s ease-in-out infinite !important;
-  }
-
   .logo:hover img,
   .logo:focus-visible img {
-    animation: none !important;
-    transform: rotate(-10deg) scale(1.08);
+    animation: clover-wiggle-reduced 900ms ease-in-out infinite alternate !important;
   }
 
   header.nav a.navcta::before {
