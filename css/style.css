@@ -1848,6 +1848,12 @@ h2 {
     animation-duration: 820ms !important;
   }
 
+  .sparkle.is-static {
+    animation: none !important;
+    opacity: .9;
+    transform: translate(var(--sx), var(--sy)) scale(.8);
+  }
+
   .cover-clover:hover img {
     animation: none !important;
   }

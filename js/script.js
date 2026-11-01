@@ -58,6 +58,11 @@ function burstSparkles(host, options = {}) {
     sparkle.style.setProperty("--dy", `${Math.round(sin * end)}px`);
     sparkle.style.setProperty("--s", `${Math.round(size[0] + Math.random() * (size[1] - size[0]))}px`);
     sparkle.style.setProperty("--rot", `${Math.round(Math.random() * 140 - 70)}deg`);
+    if (reducedMotion.matches) {
+      sparkle.classList.add("is-static");
+      window.setTimeout(() => sparkle.remove(), 900);
+    }
+
     if (glyph) {
       sparkle.classList.add("keycap-sparkle");
       sparkle.textContent = glyph;
@@ -81,7 +86,7 @@ function sparkleFeedback(host, options) {
   window.clearTimeout(glowTimers.get(host));
   glowTimers.set(host, window.setTimeout(() => host.classList.remove("is-glowing"), 850));
 
-  if (!reducedMotion.matches) burstSparkles(host, options);
+  burstSparkles(host, options);
 }
 
 /* 2. Cover clover ---------------------------------------------------------- */
