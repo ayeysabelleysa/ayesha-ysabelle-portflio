@@ -58,10 +58,6 @@ function burstSparkles(host, options = {}) {
     sparkle.style.setProperty("--dy", `${Math.round(sin * end)}px`);
     sparkle.style.setProperty("--s", `${Math.round(size[0] + Math.random() * (size[1] - size[0]))}px`);
     sparkle.style.setProperty("--rot", `${Math.round(Math.random() * 140 - 70)}deg`);
-    if (reducedMotion.matches) {
-      sparkle.classList.add("is-static");
-      window.setTimeout(() => sparkle.remove(), 900);
-    }
 
     if (glyph) {
       sparkle.classList.add("keycap-sparkle");
@@ -92,7 +88,6 @@ function sparkleFeedback(host, options) {
 /* 2. Cover clover ---------------------------------------------------------- */
 
 const coverClover = document.querySelector("#cover-clover");
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 let pressedBy = null;
 
 function beginCloverPress(source) {
@@ -280,7 +275,7 @@ if (themeButton) {
 
 const projectGrid = document.querySelector("#work .grid");
 
-if (projectGrid && !reducedMotion.matches && "IntersectionObserver" in window) {
+if (projectGrid) {
   const projectCards = [...projectGrid.querySelectorAll(".proj")];
   projectGrid.classList.add("has-reveal");
 
@@ -294,15 +289,20 @@ if (projectGrid && !reducedMotion.matches && "IntersectionObserver" in window) {
     });
   };
 
-  const projectObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add("is-visible");
-      observer.unobserve(entry.target);
-    });
-  }, { threshold: 0.12 });
+  if ("IntersectionObserver" in window) {
+    const projectObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12 });
 
-  projectCards.forEach((card) => projectObserver.observe(card));
+    projectCards.forEach((card) => projectObserver.observe(card));
+  } else {
+    projectCards.forEach((card) => card.classList.add("is-visible"));
+  }
+
   window.addEventListener("scroll", revealVisibleCards, { passive: true });
   window.addEventListener("resize", revealVisibleCards, { passive: true });
   document.addEventListener("visibilitychange", revealVisibleCards);
