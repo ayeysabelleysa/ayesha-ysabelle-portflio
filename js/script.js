@@ -149,6 +149,8 @@ document.querySelectorAll(".say a").forEach((contactButton) => {
 
 const navToggle = document.querySelector("#navtoggle");
 const navMenu = document.querySelector("#navmenu");
+const pageMain = document.querySelector("main");
+const skipLink = document.querySelector(".skip");
 const navToggleText = navToggle?.querySelector(".navtoggle-text");
 const navToggleIcon = navToggle?.querySelector(".navtoggle-icon");
 const mobileNav = window.matchMedia("(max-width: 820px)");
@@ -274,24 +276,7 @@ if (themeButton) {
   paintTheme();
 }
 
-/* 6. Resume ---------------------------------------------------------------- */
-
-/* "View resume" is a plain link to assets/resume.pdf (new tab). Until that file
-   exists the href quietly falls back to the printable resume.html, so the button
-   never dead-ends. Drop the PDF in and the link upgrades on the next page load. */
-const resumeLink = document.querySelector("[data-resume]");
-
-if (resumeLink) {
-  const pdfUrl = resumeLink.getAttribute("href");
-
-  fetch(pdfUrl, { method: "HEAD", cache: "no-store" })
-    .then((response) => {
-      if (!response.ok) resumeLink.setAttribute("href", "resume.html");
-    })
-    .catch(() => resumeLink.setAttribute("href", "resume.html"));
-}
-
-/* 7. Project cards --------------------------------------------------------- */
+/* 6. Project cards --------------------------------------------------------- */
 
 const projectGrid = document.querySelector("#work .grid");
 
