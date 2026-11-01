@@ -121,9 +121,6 @@ window.addEventListener("keyup", (event) => {
 coverClover?.addEventListener("blur", () => endCloverPress());
 
 coverClover?.addEventListener("click", () => {
-  coverClover.classList.remove("is-clicked");
-  void coverClover.offsetWidth;
-  coverClover.classList.add("is-clicked");
   sparkleFeedback(coverClover, { count: 10, travel: [22, 52], size: [10, 18] });
 });
 
