@@ -281,7 +281,18 @@ if (themeButton) {
 const projectGrid = document.querySelector("#work .grid");
 
 if (projectGrid && !reducedMotion.matches && "IntersectionObserver" in window) {
+  const projectCards = [...projectGrid.querySelectorAll(".proj")];
   projectGrid.classList.add("has-reveal");
+
+  const revealVisibleCards = () => {
+    projectCards.forEach((card) => {
+      if (card.classList.contains("is-visible")) return;
+      const rect = card.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < window.innerHeight) {
+        card.classList.add("is-visible");
+      }
+    });
+  };
 
   const projectObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
@@ -291,7 +302,11 @@ if (projectGrid && !reducedMotion.matches && "IntersectionObserver" in window) {
     });
   }, { threshold: 0.12 });
 
-  projectGrid.querySelectorAll(".proj").forEach((card) => projectObserver.observe(card));
+  projectCards.forEach((card) => projectObserver.observe(card));
+  window.addEventListener("scroll", revealVisibleCards, { passive: true });
+  window.addEventListener("resize", revealVisibleCards, { passive: true });
+  document.addEventListener("visibilitychange", revealVisibleCards);
+  window.setTimeout(revealVisibleCards, 250);
 }
 
 const projectLightbox = document.querySelector("#project-lightbox");

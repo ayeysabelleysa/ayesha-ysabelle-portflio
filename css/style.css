@@ -607,6 +607,18 @@ h2 {
   width: 64px;
   height: 64px;
   object-fit: contain;
+  transform-origin: center;
+  animation: clover-idle 4.2s ease-in-out infinite;
+}
+
+@keyframes clover-idle {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0) scale(1);
+  }
+  50% {
+    transform: translateY(-2px) rotate(3deg) scale(1.03);
+  }
 }
 
 .cover-clover:hover:not(.is-pressed) {
@@ -643,7 +655,7 @@ h2 {
   margin-left: 24px;
 }
 
-.cover-clover.is-clicked img {
+#cover-clover.is-clicked img {
   animation: clover-tap 580ms cubic-bezier(.18, .89, .32, 1.28);
 }
 
