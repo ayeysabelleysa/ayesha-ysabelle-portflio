@@ -613,6 +613,10 @@ h2 {
   transform: translateY(-2px);
 }
 
+.cover-clover:hover:not(.is-pressed) img {
+  animation: clover-wiggle 240ms ease-in-out infinite alternate;
+}
+
 .cover-clover:active,
 .cover-clover.is-pressed {
   transform: translateY(6px);
@@ -637,6 +641,21 @@ h2 {
   gap: 12px;
   flex: none;
   margin-left: 24px;
+}
+
+.cover-clover.is-clicked img {
+  animation: clover-tap 580ms cubic-bezier(.18, .89, .32, 1.28);
+}
+
+@keyframes clover-wiggle {
+  from { transform: rotate(-10deg); }
+  to { transform: rotate(8deg); }
+}
+
+@keyframes clover-tap {
+  0% { transform: scale(1) rotate(0); }
+  55% { transform: scale(1.22) rotate(12deg); }
+  100% { transform: scale(1) rotate(0); }
 }
 
 .hero .tag {
@@ -1830,6 +1849,10 @@ h2 {
   }
 
   .cover-clover:hover img {
+    animation: none !important;
+  }
+
+  .cover-clover.is-clicked img {
     animation: none !important;
   }
 
