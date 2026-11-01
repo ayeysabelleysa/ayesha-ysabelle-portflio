@@ -182,7 +182,7 @@ There is no drop shadow on About pillars — they sit flat on the page.
 - **Ticker** — full-width band, `13px` vertical padding, `-1°` rotation, `32s` loop,
   pauses on hover/focus, `60s` under reduced motion.
 - **Sparkles** — 12-point stars, `12px` default, `900ms` pop, rose + gold.
-- **Cursor** — clover PNG `32 × 32`, hotspot `16 16`, pointer variant on links/buttons.
+- **Cursor** — `assets/logo.svg` with hotspot `16 16`; clover PNGs are browser fallbacks, including links/buttons.
 
 ---
 

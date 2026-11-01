@@ -125,10 +125,10 @@ body {
   line-height: 1.6;
 }
 
-/* Her clover is the pointer everywhere. PNGs, because Safari ignores SVG
-   cursors; the keyword after the comma is the fallback if loading fails. */
+/* Use the logo mark as the cursor, with PNG fallbacks for browsers that reject
+   SVG cursor images and a system cursor as the final fallback. */
 html {
-  cursor: url("../assets/cursor.png") 16 16, auto;
+  cursor: url("../assets/logo.svg") 16 16, url("../assets/cursor.png") 16 16, auto;
 }
 
 a,
@@ -138,7 +138,7 @@ summary,
 .tkey,
 .chip,
 label {
-  cursor: url("../assets/cursor-pointer.png") 16 16, pointer;
+  cursor: url("../assets/logo.svg") 16 16, url("../assets/cursor-pointer.png") 16 16, pointer;
 }
 
 input,
