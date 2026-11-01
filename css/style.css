@@ -614,7 +614,7 @@ h2 {
 }
 
 .cover-clover:hover:not(.is-pressed) img {
-  animation: clover-wiggle 240ms ease-in-out infinite alternate;
+  animation: clover-wiggle 620ms ease-in-out infinite alternate;
 }
 
 .cover-clover:active,
