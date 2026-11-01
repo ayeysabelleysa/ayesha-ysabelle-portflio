@@ -70,79 +70,37 @@ function burstSparkles(host, options = {}) {
   }
 }
 
+const glowTimers = new WeakMap();
+
+function sparkleFeedback(host, options) {
+  if (!host) return;
+
+  host.classList.remove("is-glowing");
+  void host.offsetWidth;
+  host.classList.add("is-glowing");
+  window.clearTimeout(glowTimers.get(host));
+  glowTimers.set(host, window.setTimeout(() => host.classList.remove("is-glowing"), 850));
+
+  if (!reducedMotion.matches) burstSparkles(host, options);
+}
+
 /* 2. Cover clover ---------------------------------------------------------- */
 
 const coverClover = document.querySelector("#cover-clover");
-const coverSound = document.querySelector("#cover-sound");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-const speakerIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 5 6 9H3v6h3l5 4V5ZM15.5 8.5a5 5 0 010 7M18.5 5.5a9 9 0 010 13"/></svg>';
-const mutedIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 5 6 9H3v6h3l5 4V5ZM16 9l5 6m0-6-5 6"/></svg>';
-let soundMuted = false;
-let audioContext;
 let pressedBy = null;
-
-try {
-  soundMuted = localStorage.getItem("clover-sound-muted") === "true";
-} catch (_) {}
-
-function paintSoundToggle() {
-  if (!coverSound) return;
-  coverSound.innerHTML = soundMuted ? mutedIcon : speakerIcon;
-  coverSound.setAttribute("aria-pressed", String(soundMuted));
-  coverSound.setAttribute("aria-label", soundMuted ? "Unmute clover sounds" : "Mute clover sounds");
-  coverSound.title = soundMuted ? "Unmute clover sounds" : "Mute clover sounds";
-}
-
-function playKeySound(kind) {
-  if (soundMuted) return;
-
-  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-  if (!AudioContextClass) return;
-
-  audioContext ??= new AudioContextClass();
-  if (audioContext.state === "suspended") audioContext.resume();
-
-  const now = audioContext.currentTime;
-  const oscillator = audioContext.createOscillator();
-  const gain = audioContext.createGain();
-  const isPress = kind === "press";
-  const duration = isPress ? 0.11 : 0.055;
-
-  oscillator.type = isPress ? "triangle" : "sine";
-  oscillator.frequency.setValueAtTime(isPress ? 115 : 720, now);
-  oscillator.frequency.exponentialRampToValueAtTime(isPress ? 58 : 460, now + duration);
-  gain.gain.setValueAtTime(0.0001, now);
-  gain.gain.exponentialRampToValueAtTime(isPress ? 0.055 : 0.035, now + 0.008);
-  gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-  oscillator.connect(gain);
-  gain.connect(audioContext.destination);
-  oscillator.start(now);
-  oscillator.stop(now + duration);
-}
 
 function beginCloverPress(source) {
   if (pressedBy) return;
   pressedBy = source;
   coverClover?.classList.add("is-pressed");
-  playKeySound("press");
 }
 
 function endCloverPress(source) {
   if (!pressedBy || (source && source !== pressedBy)) return;
   pressedBy = null;
   coverClover?.classList.remove("is-pressed");
-  playKeySound("release");
 }
-
-paintSoundToggle();
-
-coverSound?.addEventListener("click", () => {
-  soundMuted = !soundMuted;
-  try {
-    localStorage.setItem("clover-sound-muted", String(soundMuted));
-  } catch (_) {}
-  paintSoundToggle();
-});
 
 coverClover?.addEventListener("pointerdown", (event) => {
   if (event.button !== 0) return;
@@ -166,9 +124,7 @@ coverClover?.addEventListener("click", () => {
   coverClover.classList.remove("is-clicked");
   void coverClover.offsetWidth;
   coverClover.classList.add("is-clicked");
-  if (!reducedMotion.matches) {
-    burstSparkles(coverClover, { count: 4, travel: [32, 56], size: [8, 14], glyph: "✦" });
-  }
+  sparkleFeedback(coverClover, { count: 10, travel: [22, 52], size: [10, 18] });
 });
 
 /* 3. Toolbox --------------------------------------------------------------- */
@@ -176,6 +132,12 @@ coverClover?.addEventListener("click", () => {
 /* Each tool key is a little keycap: clicking pops a ring of sparkles. */
 document.querySelectorAll(".tkey").forEach((key) => {
   key.addEventListener("click", () => burstSparkles(key, { count: 10, travel: [22, 52], size: [10, 18] }));
+});
+
+document.querySelectorAll(".say a").forEach((contactButton) => {
+  contactButton.addEventListener("click", () => {
+    sparkleFeedback(contactButton, { count: 10, travel: [22, 52], size: [10, 18] });
+  });
 });
 
 /* 4. Mobile menu ----------------------------------------------------------- */
@@ -308,3 +270,69 @@ if (themeButton) {
 }
 
 /* 6. Resume ---------------------------------------------------------------- */
+
+/* "View resume" is a plain link to assets/resume.pdf (new tab). Until that file
+   exists the href quietly falls back to the printable resume.html, so the button
+   never dead-ends. Drop the PDF in and the link upgrades on the next page load. */
+const resumeLink = document.querySelector("[data-resume]");
+
+if (resumeLink) {
+  const pdfUrl = resumeLink.getAttribute("href");
+
+  fetch(pdfUrl, { method: "HEAD", cache: "no-store" })
+    .then((response) => {
+      if (!response.ok) resumeLink.setAttribute("href", "resume.html");
+    })
+    .catch(() => resumeLink.setAttribute("href", "resume.html"));
+}
+
+/* 7. Project cards --------------------------------------------------------- */
+
+const projectGrid = document.querySelector("#work .grid");
+
+if (projectGrid && !reducedMotion.matches && "IntersectionObserver" in window) {
+  projectGrid.classList.add("has-reveal");
+
+  const projectObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.12 });
+
+  projectGrid.querySelectorAll(".proj").forEach((card) => projectObserver.observe(card));
+}
+
+const projectLightbox = document.querySelector("#project-lightbox");
+const projectLightboxImage = projectLightbox?.querySelector("img");
+const lightboxClose = projectLightbox?.querySelector(".lightbox-close");
+
+document.querySelectorAll(".shot-trigger").forEach((trigger) => {
+  trigger.addEventListener("click", () => {
+    const image = trigger.querySelector("img");
+    if (!projectLightbox || !projectLightboxImage || !image) return;
+
+    projectLightboxImage.src = image.currentSrc || image.src;
+    projectLightboxImage.alt = trigger.dataset.lightboxAlt || "";
+    projectLightbox.showModal();
+  });
+});
+
+lightboxClose?.addEventListener("click", () => projectLightbox?.close());
+
+projectLightbox?.addEventListener("click", (event) => {
+  if (event.target === projectLightbox) projectLightbox.close();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && projectLightbox?.open) {
+    event.preventDefault();
+    projectLightbox.close();
+  }
+});
+
+projectLightbox?.addEventListener("close", () => {
+  projectLightboxImage?.removeAttribute("src");
+  if (projectLightboxImage) projectLightboxImage.alt = "";
+});
