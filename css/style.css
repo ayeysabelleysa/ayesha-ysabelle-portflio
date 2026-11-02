@@ -12,6 +12,8 @@
 /* 1. Tokens ---------------------------------------------------------------- */
 
 :root {
+  --deco-ribbon: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 600 300%22%3E%3Cg fill=%22%23D9587F%22%3E%3Cpath fill-opacity=%22.16%22 d=%22M0 150 C120 60 240 60 360 120 S520 200 600 110 L600 160 C520 250 400 250 300 190 S110 130 0 200Z%22/%3E%3Cpath fill-opacity=%22.09%22 d=%22M0 200 C120 110 240 110 360 170 S520 250 600 160 L600 190 C520 280 400 280 300 220 S110 160 0 230Z%22/%3E%3C/g%3E%3C/svg%3E");
+  --deco-bow: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 80%22%3E%3Cg fill=%22%23D9587F%22 fill-opacity=%22.2%22%3E%3Cpath d=%22M60 40 C40 5 5 5 8 38 C10 70 40 68 60 40Z%22/%3E%3Cpath d=%22M60 40 C80 5 115 5 112 38 C110 70 80 68 60 40Z%22/%3E%3Ccircle cx=%2260%22 cy=%2240%22 r=%229%22/%3E%3Cpath d=%22M54 48 L36 78 L52 72 L58 52Z%22/%3E%3Cpath d=%22M66 48 L84 78 L68 72 L62 52Z%22/%3E%3C/g%3E%3C/svg%3E");
   --bg: #FBE6E8;
   --glow: #FFF6F6;
   --card: #FFFAFA;
@@ -113,6 +115,25 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5.5rem;
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+/* Page-wide ribbon and bow decoration behind everything. */
+body::before {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  opacity: .6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 600 300%22%3E%3Cg fill=%22%23D9587F%22%3E%3Cpath fill-opacity=%22.16%22 d=%22M0 150 C120 60 240 60 360 120 S520 200 600 110 L600 160 C520 250 400 250 300 190 S110 130 0 200Z%22/%3E%3Cpath fill-opacity=%22.09%22 d=%22M0 200 C120 110 240 110 360 170 S520 250 600 160 L600 190 C520 280 400 280 300 220 S110 160 0 230Z%22/%3E%3C/g%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 600 300%22%3E%3Cg fill=%22%23D9587F%22%3E%3Cpath fill-opacity=%22.16%22 d=%22M0 150 C120 60 240 60 360 120 S520 200 600 110 L600 160 C520 250 400 250 300 190 S110 130 0 200Z%22/%3E%3Cpath fill-opacity=%22.09%22 d=%22M0 200 C120 110 240 110 360 170 S520 250 600 160 L600 190 C520 280 400 280 300 220 S110 160 0 230Z%22/%3E%3C/g%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 80%22%3E%3Cg fill=%22%23D9587F%22 fill-opacity=%22.2%22%3E%3Cpath d=%22M60 40 C40 5 5 5 8 38 C10 70 40 68 60 40Z%22/%3E%3Cpath d=%22M60 40 C80 5 115 5 112 38 C110 70 80 68 60 40Z%22/%3E%3Ccircle cx=%2260%22 cy=%2240%22 r=%229%22/%3E%3Cpath d=%22M54 48 L36 78 L52 72 L58 52Z%22/%3E%3Cpath d=%22M66 48 L84 78 L68 72 L62 52Z%22/%3E%3C/g%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 80%22%3E%3Cg fill=%22%23D9587F%22 fill-opacity=%22.2%22%3E%3Cpath d=%22M60 40 C40 5 5 5 8 38 C10 70 40 68 60 40Z%22/%3E%3Cpath d=%22M60 40 C80 5 115 5 112 38 C110 70 80 68 60 40Z%22/%3E%3Ccircle cx=%2260%22 cy=%2240%22 r=%229%22/%3E%3Cpath d=%22M54 48 L36 78 L52 72 L58 52Z%22/%3E%3Cpath d=%22M66 48 L84 78 L68 72 L62 52Z%22/%3E%3C/g%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 80%22%3E%3Cg fill=%22%23D9587F%22 fill-opacity=%22.2%22%3E%3Cpath d=%22M60 40 C40 5 5 5 8 38 C10 70 40 68 60 40Z%22/%3E%3Cpath d=%22M60 40 C80 5 115 5 112 38 C110 70 80 68 60 40Z%22/%3E%3Ccircle cx=%2260%22 cy=%2240%22 r=%229%22/%3E%3Cpath d=%22M54 48 L36 78 L52 72 L58 52Z%22/%3E%3Cpath d=%22M66 48 L84 78 L68 72 L62 52Z%22/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 115% auto, 115% auto, 96px auto, 70px auto, 58px auto;
+  background-position: 50% -4%, 50% 108%, 8% 62%, 92% 30%, 70% 94%;
 }
 
 body {
@@ -522,7 +543,7 @@ h2 {
 .hero.cover {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 270px);
   align-items: center;
   align-content: center;
   gap: clamp(30px, 5vw, 64px);
@@ -534,6 +555,10 @@ h2 {
 .hero.cover > * {
   position: relative;
   z-index: 1;
+}
+
+.hero.cover > .ticker {
+  grid-column: 1 / -1;
 }
 
 .cover-copy {
@@ -712,19 +737,22 @@ h2 {
 /* 5. Ticker ---------------------------------------------------------------- */
 
 .ticker {
-  width: 100%;
+  position: relative;
+  width: 100vw;
   min-width: 0;
+  margin: 40px 0 0 calc(50% - 50vw);
+}
+
+/* Full-bleed strip with no fill; the curly lines and text carry the design. */
+.ticker-band {
+  position: relative;
   overflow: hidden;
-  margin: 30px -6px 0;
-  padding: 13px 0;
-  border-radius: 99px;
-  background: var(--cloud);
-  box-shadow: var(--shadow);
-  color: #4F281F;
-  transform: rotate(-1deg);
+  padding: 30px 0;
+  color: var(--ink);
 }
 
 .track {
+  position: relative;
   display: flex;
   width: max-content;
   animation: tick 32s linear infinite;
@@ -736,12 +764,52 @@ h2 {
   animation-play-state: paused;
 }
 
+/* Asymmetric curly line, heart, curly line (repeats every 160px), above and below the text. It is part of the track, so it travels with it. */
+.track::before,
+.track::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 24px;
+  background: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%2224%22 viewBox=%220 0 160 24%22%3E%3Cg fill=%22none%22 stroke=%22%23D9587F%22 stroke-width=%221.8%22 stroke-linecap=%22round%22%3E%3Cpath d=%22M0 14C12 19 26 17 40 10C50 5 60 6 65 12%22/%3E%3Cpath d=%22M79 12C86 6 98 5 108 11C118 17 132 17 142 11C150 6 156 8 160 14%22/%3E%3C/g%3E%3Cpath transform=%22translate%2872 13%29 scale%281.8%29 translate%28-36 -10.7%29%22 d=%22M36 14.2c-6.5-4.4-3.6-9.6 0-6.6 3.6-3 6.5 2.2 0 6.6z%22 fill=%22%23D9587F%22/%3E%3C/svg%3E") 0 0 / 160px 24px repeat-x;
+  pointer-events: none;
+}
+
+.track::before {
+  top: -26px;
+}
+
+.track::after {
+  bottom: -26px;
+  transform: scaleY(-1);
+}
+
 .track span {
-  padding-right: 1.4rem;
+  display: flex;
+  align-items: center;
   font-family: var(--font-body);
-  font-size: .82rem;
-  letter-spacing: .08em;
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .12em;
   white-space: nowrap;
+}
+
+.track b {
+  font-weight: 700;
+}
+
+.track i {
+  flex: none;
+  margin: 0 1.3rem;
+  color: var(--rose);
+  font-size: 1.15rem;
+  font-style: normal;
+  line-height: 1;
+}
+
+.track i::before {
+  content: "\273F";
 }
 
 @keyframes tick {
@@ -763,6 +831,34 @@ h2 {
 #work {
   position: relative;
   isolation: isolate;
+}
+
+/* Full-bleed ribbons and bows behind the About and Projects sections. */
+.about-deco,
+#work::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  opacity: .6;
+  pointer-events: none;
+  background-repeat: no-repeat;
+}
+
+.about-deco {
+  background-image: var(--deco-ribbon), var(--deco-ribbon), var(--deco-bow), var(--deco-bow), var(--deco-bow);
+  background-size: 110% auto, 100% auto, 84px auto, 64px auto, 52px auto;
+  background-position: 50% 12%, 50% 105%, 4% 88%, 94% 6%, 48% 98%;
+}
+
+#work::before {
+  background-image: var(--deco-ribbon), var(--deco-ribbon), var(--deco-ribbon), var(--deco-bow), var(--deco-bow), var(--deco-bow), var(--deco-bow), var(--deco-bow);
+  background-size: 115% auto, 105% auto, 115% auto, 88px auto, 66px auto, 76px auto, 54px auto, 70px auto;
+  background-position: 50% 4%, 50% 46%, 50% 96%, 5% 18%, 95% 34%, 6% 58%, 92% 74%, 30% 99%;
 }
 
 #work > :not(.work-petals) {
@@ -1142,74 +1238,133 @@ h2 {
 
 /* 7. About ----------------------------------------------------------------- */
 
-.about {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(200px, .8fr);
-  align-items: center;
-  gap: 32px;
+/* Clover watermark, a floating sparkle and a hand-drawn underline; no panel behind it. */
+#about {
+  position: relative;
+  isolation: isolate;
+  margin-top: clamp(24px, 4vw, 48px);
+  padding: clamp(28px, 5vw, 56px);
+}
+
+#about::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  right: -20px;
+  width: 280px;
+  height: 280px;
+  background: var(--rose);
+  opacity: .12;
+  pointer-events: none;
+  -webkit-mask: url("../assets/heart-clover.svg") center / contain no-repeat;
+  mask: url("../assets/heart-clover.svg") center / contain no-repeat;
+  transform: rotate(18deg);
+}
+
+#about::after {
+  content: "";
+  position: absolute;
+  bottom: 22px;
+  left: 24px;
+  width: 22px;
+  height: 22px;
+  background: var(--gold);
+  opacity: .8;
+  pointer-events: none;
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  animation: about-twinkle 3.2s ease-in-out infinite;
+}
+
+@keyframes about-twinkle {
+  50% {
+    opacity: .35;
+    transform: scale(.7) rotate(45deg);
+  }
+}
+
+#about > * {
+  position: relative;
+  z-index: 1;
+}
+
+#about .eyebrow {
+  margin-top: 0;
+}
+
+#about .eyebrow + h2 {
+  display: inline-block;
+  padding-bottom: 8px;
+  background: linear-gradient(90deg, var(--rose), var(--gold)) left bottom / 100% 5px no-repeat;
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #about::after {
+    animation: none;
+  }
 }
 
 .about p {
-  max-width: 34em;
-  margin: 0 0 14px;
-}
-
-.about .portrait {
-  justify-self: end;
-  max-width: 250px;
+  max-width: none;
+  margin: 0 0 18px;
+  font-size: clamp(1.05rem, 1.5vw, 1.18rem);
+  line-height: 1.75;
 }
 
 /* 8. Toolkit --------------------------------------------------------------- */
 
-/* Lives inside the About section. */
+/* Lives inside the About section, beside the copy; a tilted 3D deck of key trays. */
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: clamp(28px, 5vw, 64px);
+}
+
+/* Toolkit: no cards and no group labels, just one cluster of keycaps filling the column height. */
 .tools {
-  margin-top: clamp(36px, 5vw, 56px);
+  display: flex;
+  flex-direction: column;
+  align-self: center;
 }
 
 .tools-title {
-  margin: 0 0 18px;
-  font-size: clamp(1.6rem, 3.6vw, 2.1rem);
+  margin: 0 0 14px;
+  font-size: 1.05rem;
 }
 
 .toolbox {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 18px;
-}
-
-.tgroup {
-  padding: 20px 22px 26px;
-  border: 1px solid var(--line);
-  border-radius: 26px;
-  background: var(--card);
-  box-shadow: var(--shadow);
-}
-
-.tgroup .label {
-  display: block;
-  margin-bottom: 16px;
-  color: var(--rose-strong);
-  opacity: 1;
-}
-
-.keys {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px 12px;
+  gap: 20px 12px;
 }
 
+.tgroup,
+.keys {
+  display: contents;
+}
+
+/* Each skill is a chunky keycap: lit top face, thick darker side, soft floor shadow. */
 .tkey {
+  position: relative;
   display: inline-block;
-  padding: .55rem 1.05rem;
+  padding: .55rem 1.05rem .57rem;
+  border: 1px solid rgba(255, 255, 255, .55);
   border-radius: 16px;
-  background: linear-gradient(160deg, #FBD3DB, #F2C4CD 60%, #EBB3C0);
-  box-shadow: inset 0 2px 0 rgba(255, 255, 255, .7), 0 5px 0 #D79BAA, 0 10px 14px rgba(120, 50, 70, .16);
+  background: linear-gradient(180deg, #FFE3E8 0%, #F9CBD5 55%, #F2BAC8 100%);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, .9),
+    inset 0 -3px 5px rgba(185, 62, 104, .14),
+    0 2px 0 #E3A3B3,
+    0 4px 0 #D98FA3,
+    0 6px 0 #C97B91,
+    0 12px 14px -2px rgba(120, 50, 70, .35);
   color: #4F281F;
   font-family: var(--font-body);
   font-size: .82rem;
-  font-weight: 500;
+  font-weight: 600;
   transform: rotate(var(--r, 0deg));
-  transition: transform .1s, box-shadow .1s;
+  transition: transform .12s ease, box-shadow .12s ease;
   user-select: none;
 }
 
@@ -1226,12 +1381,23 @@ h2 {
 }
 
 .tkey:hover {
-  transform: translateY(-2px) rotate(0);
+  transform: translateY(-3px) rotate(0);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, .9),
+    inset 0 -3px 5px rgba(185, 62, 104, .14),
+    0 2px 0 #E3A3B3,
+    0 4px 0 #D98FA3,
+    0 6px 0 #C97B91,
+    0 17px 18px -3px rgba(120, 50, 70, .38);
 }
 
 .tkey:active {
-  box-shadow: inset 0 2px 0 rgba(255, 255, 255, .7), 0 0 0 #D79BAA, 0 3px 6px rgba(120, 50, 70, .18);
-  transform: translateY(5px) rotate(0);
+  transform: translateY(6px) rotate(0);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, .9),
+    inset 0 -2px 4px rgba(185, 62, 104, .14),
+    0 0 0 #C97B91,
+    0 3px 5px rgba(120, 50, 70, .3);
 }
 
 /* 9. Education ------------------------------------------------------------- */
@@ -1628,6 +1794,16 @@ h2 {
   }
 }
 
+@media (max-width: 640px) {
+  .about {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .toolbox {
+    gap: 18px 12px;
+  }
+}
+
 @media (max-width: 900px) {
   .hero.cover {
     justify-items: center;
@@ -1672,6 +1848,10 @@ h2 {
 
   .cover-title-focus {
     font-size: clamp(2.5rem, 13vw, 4rem);
+  }
+
+  .hero.cover > .ticker {
+    order: 3;
   }
 
   .hero.cover > .portrait {
@@ -1914,15 +2094,6 @@ h2 {
 @media (max-width: 720px) {
   .grid {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .about {
-    grid-template-columns: 1fr;
-  }
-
-  .about .portrait {
-    justify-self: center;
-    max-width: 220px;
   }
 
   .edutl li {
