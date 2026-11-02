@@ -250,7 +250,7 @@ function paintTheme() {
   themeButton.innerHTML = isDark() ? sunIcon : moonIcon;
   themeButton.setAttribute("aria-pressed", String(isDark()));
   themeButton.setAttribute("aria-label", isDark() ? "Switch to light mode" : "Switch to dark mode");
-  themeColor?.setAttribute("content", isDark() ? "#051F45" : "#FBE6E8");
+  themeColor?.setAttribute("content", isDark() ? "#121014" : "#FBE6E8");
 }
 
 try {
@@ -309,35 +309,48 @@ if (projectGrid) {
   window.setTimeout(revealVisibleCards, 250);
 }
 
-const projectLightbox = document.querySelector("#project-lightbox");
-const projectLightboxImage = projectLightbox?.querySelector("img");
-const lightboxClose = projectLightbox?.querySelector(".lightbox-close");
+/* 7. Scroll reveal --------------------------------------------------------- */
 
-document.querySelectorAll(".shot-trigger").forEach((trigger) => {
-  trigger.addEventListener("click", () => {
-    const image = trigger.querySelector("img");
-    if (!projectLightbox || !projectLightboxImage || !image) return;
+/* Each component fades in once when it first scrolls into view. Groups stagger. */
+const revealGroups = [
+  { selector: "#about .about-copy" },
+  { selector: ".tools-title" },
+  { selector: ".tkey", step: 55, kind: "pop" },
+  { selector: "main > section:not(.hero) > .eyebrow, main > section:not(.hero) > h2" },
+  { selector: ".ticker" },
+  { selector: ".edutl li", step: 120 },
+  { selector: ".endcard" },
+  { selector: ".endcard .field", step: 100 },
+  { selector: ".endcard .say" },
+];
 
-    projectLightboxImage.src = image.currentSrc || image.src;
-    projectLightboxImage.alt = trigger.dataset.lightboxAlt || "";
-    projectLightbox.showModal();
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if ("IntersectionObserver" in window && !reduceMotion) {
+  const revealed = [];
+
+  revealGroups.forEach(({ selector, step = 0, kind }) => {
+    document.querySelectorAll(selector).forEach((el, index) => {
+      if (el.classList.contains("reveal")) return;
+      el.classList.add("reveal");
+      if (kind) el.dataset.reveal = kind;
+      if (step) el.style.setProperty("--reveal-delay", `${index * step}ms`);
+      revealed.push(el);
+    });
   });
-});
 
-lightboxClose?.addEventListener("click", () => projectLightbox?.close());
+  document.documentElement.classList.add("js-reveal");
 
-projectLightbox?.addEventListener("click", (event) => {
-  if (event.target === projectLightbox) projectLightbox.close();
-});
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-in");
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.15, rootMargin: "0px 0px -6% 0px" });
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && projectLightbox?.open) {
-    event.preventDefault();
-    projectLightbox.close();
-  }
-});
+  revealed.forEach((el) => revealObserver.observe(el));
 
-projectLightbox?.addEventListener("close", () => {
-  projectLightboxImage?.removeAttribute("src");
-  if (projectLightboxImage) projectLightboxImage.alt = "";
-});
+  /* If the observer never fires (print, odd embeds), show everything anyway. */
+  window.setTimeout(() => revealed.forEach((el) => el.classList.add("is-in")), 6000);
+}
