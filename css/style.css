@@ -822,10 +822,9 @@ h2 {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-auto-rows: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   align-items: stretch;
-  gap: 18px;
+  gap: 28px;
 }
 
 #work {
@@ -924,9 +923,9 @@ h2 {
 
 .proj,
 .grid .proj {
-  display: flex;
+  display: grid;
   overflow: hidden;
-  flex-direction: column;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
   align-self: stretch;
   min-width: 0;
   min-height: 0;
@@ -971,11 +970,65 @@ h2 {
 
 .shot {
   position: relative;
+  min-height: 400px;
+  perspective: 1600px;
+}
+
+.proj:nth-child(even) .shot {
+  order: 2;
+}
+
+.shot-flip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .75s cubic-bezier(.2, .8, .2, 1);
+}
+
+.shot:hover .shot-flip,
+.shot.is-flipped .shot-flip {
+  transform: rotateY(180deg);
+}
+
+.shot-face {
+  position: absolute;
+  inset: 0;
   overflow: hidden;
-  aspect-ratio: 16 / 10;
-  margin: 14px 14px 0;
-  border-radius: 20px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.shot-front {
   background: linear-gradient(135deg, rgba(217, 88, 127, .16), rgba(201, 162, 126, .18));
+}
+
+/* Back of the image: my role and what the project is. */
+.shot-back {
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  padding: 36px 40px 64px;
+  background: linear-gradient(150deg, color-mix(in srgb, var(--rose) 16%, var(--card)), color-mix(in srgb, var(--cloud) 55%, var(--card)));
+  transform: rotateY(180deg);
+}
+
+.proj .shot-back .project-roles {
+  color: var(--rose-strong);
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+.proj .shot-back p {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.proj .shot-back .features li {
+  font-size: .92rem;
 }
 
 .shot-trigger {
@@ -985,12 +1038,12 @@ h2 {
   height: 100%;
   padding: 0;
   border: 0;
-  border-radius: inherit;
   background: transparent;
   cursor: pointer;
 }
 
-.shot-trigger:focus-visible {
+.shot-trigger:focus-visible,
+.shot-turn:focus-visible {
   outline: 3px solid var(--rose-strong);
   outline-offset: -3px;
 }
@@ -1000,38 +1053,48 @@ h2 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform .6s cubic-bezier(.2, .8, .2, 1);
+  object-position: left top;
 }
 
-.proj:hover .shot img,
-.shot-trigger:focus-visible img {
-  transform: scale(1.05);
-}
-
-.idx {
+/* Flip control for touch and keyboard; hovering the image flips it on desktop. */
+.shot-turn {
   position: absolute;
-  top: 14px;
-  right: 14px;
-  padding: .2rem .65rem;
+  z-index: 2;
+  right: 12px;
+  bottom: 12px;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  place-items: center;
   border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
-  border-radius: 99px;
+  border-radius: 50%;
   background: var(--work-frost);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  font-family: var(--font-body);
-  font-size: .72rem;
-  font-style: normal;
-  letter-spacing: .06em;
-  z-index: 1;
-  box-shadow: 0 4px 12px rgba(40, 20, 25, .08);
+  color: var(--rose-strong);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(40, 20, 25, .12);
+  transition: transform .3s ease;
+}
+
+.shot-turn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.shot:hover .shot-turn,
+.shot.is-flipped .shot-turn {
+  transform: rotate(180deg);
 }
 
 .pbody {
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 12px;
-  padding: 22px 24px 24px;
+  justify-content: center;
+  gap: 16px;
+  padding: 36px 40px;
 }
 
 .proj .label {
@@ -1041,22 +1104,21 @@ h2 {
   line-height: 1.5;
 }
 
-.project-title-row {
+.project-tags {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 12px;
+  gap: 6px;
 }
 
 .proj h3 {
   margin: 0;
-  font-size: clamp(1.7rem, 2.3vw, 2rem);
+  font-size: clamp(2rem, 3.6vw, 2.9rem);
   letter-spacing: -.035em;
   line-height: 1.1;
 }
 
 .project-kind {
-  font-size: .66rem;
+  font-size: .74rem;
 }
 
 .status {
@@ -1065,15 +1127,9 @@ h2 {
   border-radius: 99px;
   background: color-mix(in srgb, var(--rose) 13%, var(--card));
   color: var(--rose-strong);
-  font-size: .66rem;
+  font-size: .74rem;
   font-weight: 700;
   letter-spacing: .015em;
-}
-
-.project-statuses {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
 }
 
 .proj p {
@@ -1127,56 +1183,60 @@ h2 {
   font-size: .7rem;
 }
 
-.project-cta {
-  display: flex;
-  min-height: 46px;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: .7rem 1rem;
-  border-radius: 99px;
-  background: linear-gradient(115deg, var(--work-cta-start), var(--work-cta-end));
-  box-shadow: 0 10px 22px -12px rgba(190, 58, 100, .75);
-  color: #fff;
-  font-size: .84rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: box-shadow .2s ease, transform .2s ease;
+/* Link rows: label on the left, round arrow on the right, dashed divider above each. */
+.project-footer {
+  gap: 0;
+  margin-top: 12px;
 }
 
-.project-cta:hover {
-  box-shadow: 0 13px 24px -11px rgba(190, 58, 100, .82);
-  transform: translateY(-2px);
+.project-cta {
+  display: flex;
+  min-height: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1.5px dashed color-mix(in srgb, var(--rose) 38%, transparent);
+  color: var(--rose-strong);
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color .2s ease, padding .2s ease;
 }
 
 .project-cta-secondary {
-  border: 1px solid var(--line);
-  background: color-mix(in srgb, var(--card) 86%, transparent);
-  box-shadow: none;
   color: var(--ink);
+  font-weight: 500;
 }
 
-.project-cta-secondary:hover {
-  border-color: var(--rose);
-  box-shadow: 0 8px 18px -12px var(--rose-strong);
+.project-cta:hover {
+  padding-left: 6px;
+  color: var(--ink);
 }
 
 .project-cta:focus-visible,
 .lightbox-close:focus-visible {
   outline: 3px solid var(--rose-strong);
-  outline-offset: 4px;
+  outline-offset: 2px;
 }
 
 .project-arrow {
-  width: 16px;
-  height: 16px;
-  flex: none;
   display: inline-block;
-  transition: transform .2s ease;
+  width: 14px;
+  height: 14px;
+  flex: none;
+  box-sizing: content-box;
+  padding: 8px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--rose) 15%, transparent);
+  color: var(--rose-strong);
+  transition: background .2s ease, color .2s ease, transform .2s ease;
 }
 
 .project-cta:hover .project-arrow {
-  transform: translate(3px, -3px);
+  background: var(--rose-strong);
+  color: #fff;
+  transform: rotate(45deg);
 }
 
 .project-lightbox {
@@ -1788,11 +1848,7 @@ h2 {
 
 /* 11. Responsive / motion / print ------------------------------------------ */
 
-@media (max-width: 980px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
+
 
 @media (max-width: 640px) {
   .about {
@@ -2092,8 +2148,28 @@ h2 {
 }
 
 @media (max-width: 720px) {
-  .grid {
+  .proj,
+  .grid .proj {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .shot,
+  .proj:nth-child(even) .shot {
+    order: 0;
+    min-height: 0;
+    aspect-ratio: 6 / 5;
+  }
+
+  .shot-back {
+    padding: 20px 22px 56px;
+  }
+
+  .proj .shot-back p {
+    font-size: .8rem;
+  }
+
+  .pbody {
+    padding: 24px;
   }
 
   .edutl li {

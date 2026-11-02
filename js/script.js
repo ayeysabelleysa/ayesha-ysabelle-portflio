@@ -324,6 +324,13 @@ document.querySelectorAll(".shot-trigger").forEach((trigger) => {
   });
 });
 
+document.querySelectorAll(".shot-turn").forEach((turn) => {
+  turn.addEventListener("click", () => {
+    const flipped = turn.closest(".shot").classList.toggle("is-flipped");
+    turn.setAttribute("aria-pressed", String(flipped));
+  });
+});
+
 lightboxClose?.addEventListener("click", () => projectLightbox?.close());
 
 projectLightbox?.addEventListener("click", (event) => {
