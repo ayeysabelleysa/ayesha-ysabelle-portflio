@@ -71,6 +71,7 @@
     --key-floor: rgba(0, 0, 0, .55);
     --key-floor-hover: rgba(0, 0, 0, .6);
     --key-text: #FFD3E4;
+    --curl-glow: drop-shadow(0 0 5px rgba(255, 92, 154, .55));
     --glow: #1D1920;
     --card: #1A171D;
     --rose: #FF5C9A;
@@ -109,6 +110,7 @@
   --key-floor: rgba(0, 0, 0, .55);
   --key-floor-hover: rgba(0, 0, 0, .6);
   --key-text: #FFD3E4;
+  --curl-glow: drop-shadow(0 0 5px rgba(255, 92, 154, .55));
   --glow: #1D1920;
   --card: #1A171D;
   --rose: #FF5C9A;
@@ -784,8 +786,10 @@ h2 {
 .ticker-band {
   position: relative;
   overflow: hidden;
-  padding: 30px 0;
+  padding: 40px 0;
   color: var(--ink);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
 }
 
 .track {
@@ -802,33 +806,35 @@ h2 {
 }
 
 /* Asymmetric curly line, heart, curly line (repeats every 160px), above and below the text. It is part of the track, so it travels with it. */
-.track::before,
-.track::after {
+.track span::before,
+.track span::after {
   content: "";
   position: absolute;
   right: 0;
   left: 0;
   height: 24px;
-  background: var(--curl) 0 0 / 160px 24px repeat-x;
+  background: var(--curl) 0 0 / 160px 24px round no-repeat;
+  filter: var(--curl-glow, none);
   pointer-events: none;
 }
 
-.track::before {
-  top: -26px;
+.track span::before {
+  top: -34px;
 }
 
-.track::after {
-  bottom: -26px;
+.track span::after {
+  bottom: -34px;
   transform: scaleY(-1);
 }
 
 .track span {
+  position: relative;
   display: flex;
   align-items: center;
-  font-family: var(--font-body);
-  font-size: .9rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
   font-weight: 700;
-  letter-spacing: .12em;
+  letter-spacing: .06em;
   white-space: nowrap;
 }
 
@@ -836,17 +842,22 @@ h2 {
   font-weight: 700;
 }
 
+/* The middle word of each trio is rose, so the line reads as a rhythm rather than one repeated block. */
+.track b:nth-of-type(3n + 2) {
+  color: var(--rose-strong);
+}
+
 .track i {
   flex: none;
-  margin: 0 1.3rem;
+  margin: 0 1.6rem;
   color: var(--rose);
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-style: normal;
   line-height: 1;
 }
 
 .track i::before {
-  content: "\273F";
+  content: "\2726";
 }
 
 @keyframes tick {
@@ -1271,53 +1282,90 @@ h2 {
 /* 9. Education ------------------------------------------------------------- */
 
 .edutl {
+  position: relative;
   display: grid;
-  gap: 18px;
+  gap: clamp(28px, 4vw, 44px);
   margin: 0;
-  padding: 0 0 0 24px;
-  border-left: 1px dashed var(--rose);
+  padding: 0;
   list-style: none;
+}
+
+/* One spine runs behind the dots, between the year column and the details. */
+.edutl::before {
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: 188px;
+  border-left: 1.5px dashed color-mix(in srgb, var(--rose) 55%, transparent);
+  content: "";
 }
 
 .edutl li {
   position: relative;
   display: grid;
-  grid-template-columns: 150px 1fr;
-  gap: 20px;
-  padding: 22px 26px;
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  background: var(--card);
-  box-shadow: var(--shadow);
+  grid-template-columns: 160px 1fr;
+  gap: 0 56px;
+  align-items: start;
 }
 
 .edutl li::before {
   position: absolute;
-  top: 30px;
-  left: -31px;
+  top: 12px;
+  left: 182px;
   width: 13px;
   height: 13px;
   border-radius: 50%;
   background: var(--rose);
-  box-shadow: 0 0 0 4px var(--bg);
+  box-shadow: 0 0 0 5px var(--bg), 0 0 0 6.5px color-mix(in srgb, var(--rose) 40%, transparent);
   content: "";
 }
 
+.edutl li:last-child::before {
+  box-shadow: 0 0 0 5px var(--bg), 0 0 0 8px color-mix(in srgb, var(--rose) 35%, transparent), 0 0 18px var(--work-glow);
+}
+
 .yr {
-  padding-top: 4px;
+  font-family: var(--font-display);
+  font-size: .95rem;
+  font-weight: 600;
+  text-align: right;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.yr span {
+  display: block;
   color: var(--rose-strong);
-  font-family: var(--font-body);
-  font-size: .82rem;
+  font-size: clamp(2rem, 3.4vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -.03em;
+  line-height: 1;
 }
 
 .ec h3 {
-  margin: 0 0 4px;
-  font-size: 1.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  margin: 0 0 6px;
+  font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+  line-height: 1.15;
+}
+
+.now {
+  padding: .22rem .65rem;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--rose) 16%, transparent);
+  color: var(--rose-strong);
+  font-family: var(--font-body);
+  font-size: .68rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: .03em;
 }
 
 .addr {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   font-family: var(--font-body);
   font-size: .68rem;
   letter-spacing: .03em;
@@ -1327,7 +1375,7 @@ h2 {
 
 .ec p {
   margin: 0 0 6px;
-  font-size: .95rem;
+  font-size: 1rem;
 }
 
 .ec .chips {
@@ -1997,9 +2045,28 @@ h2 {
     aspect-ratio: 16 / 11;
   }
 
+  .edutl::before {
+    left: 6px;
+  }
+
   .edutl li {
     grid-template-columns: 1fr;
     gap: 6px;
+    padding-left: 34px;
+  }
+
+  .edutl li::before {
+    left: 0;
+  }
+
+  .yr {
+    text-align: left;
+  }
+
+  .yr span {
+    display: inline;
+    margin-right: 4px;
+    font-size: 1.3rem;
   }
 
   .endcard {
