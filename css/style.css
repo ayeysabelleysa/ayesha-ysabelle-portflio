@@ -934,39 +934,57 @@ h2 {
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 10px;
-  padding: 18px 24px 22px;
+  gap: 12px;
+  padding: 22px 24px 24px;
 }
 
 .proj .label {
-  min-height: 2.4rem;
-  color: var(--rose-strong);
-  font-size: .74rem;
-  letter-spacing: .07em;
+  color: color-mix(in srgb, var(--work-copy) 76%, transparent);
+  font-size: .7rem;
+  letter-spacing: .035em;
   line-height: 1.5;
+}
+
+.project-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
 }
 
 .proj h3 {
   margin: 0;
-  font-size: 1.7rem;
+  font-size: clamp(1.7rem, 2.3vw, 2rem);
+  letter-spacing: -.035em;
+  line-height: 1.1;
+}
+
+.project-kind {
+  font-size: .66rem;
 }
 
 .status {
   align-self: flex-start;
-  padding: .3rem .72rem;
+  padding: .28rem .65rem;
   border-radius: 99px;
   background: color-mix(in srgb, var(--rose) 13%, var(--card));
   color: var(--rose-strong);
-  font-size: .72rem;
+  font-size: .66rem;
   font-weight: 700;
-  letter-spacing: .02em;
+  letter-spacing: .015em;
+}
+
+.project-statuses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .proj p {
   margin: 0;
   color: var(--work-copy);
-  font-size: .81rem;
-  line-height: 1.65;
+  font-size: .88rem;
+  line-height: 1.6;
 }
 
 .features {
@@ -981,8 +999,8 @@ h2 {
   position: relative;
   padding-left: 18px;
   color: var(--work-copy);
-  font-size: .77rem;
-  line-height: 1.5;
+  font-size: .76rem;
+  line-height: 1.55;
 }
 
 .features li::before {
@@ -1033,6 +1051,18 @@ h2 {
 .project-cta:hover {
   box-shadow: 0 13px 24px -11px rgba(190, 58, 100, .82);
   transform: translateY(-2px);
+}
+
+.project-cta-secondary {
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--card) 86%, transparent);
+  box-shadow: none;
+  color: var(--ink);
+}
+
+.project-cta-secondary:hover {
+  border-color: var(--rose);
+  box-shadow: 0 8px 18px -12px var(--rose-strong);
 }
 
 .project-cta:focus-visible,
