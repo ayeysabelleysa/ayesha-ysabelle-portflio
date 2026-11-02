@@ -14,15 +14,15 @@ Defined on `:root` and overridden by `[data-theme="dark"]` and `prefers-color-sc
 
 | Token | Light | Dark | Used for |
 | --- | --- | --- | --- |
-| `--bg` | `#FBE6E8` | `#051F45` | Page background |
-| `--glow` | `#FFF6F6` | `#0C2D5E` | Top-of-page radial glow |
-| `--card` | `#FFFAFA` | `#0B2B5B` | Card surfaces |
+| `--bg` | `#FBE6E8` | `#121014` | Page background |
+| `--glow` | `#FFF6F6` | `#1D1920` | Top-of-page radial glow |
+| `--card` | `#FFFAFA` | `#1A171D` | Card surfaces |
 | `--cloud` | `#F2C4CD` | `#F2C4CD` | Soft pink tints |
-| `--rose` | `#D9587F` | `#FF86A9` | Accents, decoration, curly lines |
-| `--rose-strong` | `#B93E68` | `#FF86A9` | Eyebrows, primary buttons, hover text |
-| `--ink` | `#4F281F` | `#FBE6E8` | Text |
+| `--rose` | `#D9587F` | `#FF5C9A` | Accents, decoration, curly lines |
+| `--rose-strong` | `#B93E68` | `#FF5C9A` | Eyebrows, primary buttons, hover text |
+| `--ink` | `#4F281F` | `#F6EEF2` | Text |
 | `--gold` | `#C9A27E` | `#C9A27E` | Sparkles, heading underline |
-| `--line` | `rgba(79,40,31,.14)` | `rgba(251,230,232,.2)` | 1px borders |
+| `--line` | `rgba(79,40,31,.14)` | `rgba(246,238,242,.16)` | 1px borders |
 | `--shadow` | `0 18px 40px -20px rgba(150,60,90,.35)` | `0 18px 40px -20px rgba(0,0,0,.6)` | Card elevation |
 
 Project-section extras: `--work-copy` (card text), `--work-cta-start/end`, `--work-glow`, `--work-frost`. Keycap colours are fixed values (light pink gradient, `#4F281F` text) and do not switch with the theme.
@@ -70,13 +70,14 @@ Two columns (`1.5fr / 1fr`, stacked at 640px). Left: eyebrow, `h2`, two paragrap
 **Keycap recipe** (`.tkey`): pink gradient top, white inset highlight, three stacked solid edges (`2/4/6px`) for thickness, soft floor shadow, ±1.5° tilt. Hover lifts `3px`; press drops `6px` and removes the edges.
 
 ### Projects
-One full-width card per row (`.proj`, radius `28px`), two columns `1.3fr / 1fr` with the screenshot on alternating sides; stacks below 720px. The screenshot fills its half edge to edge (no inner margin, clipped by the card corners), `min-height: 400px`, anchored top-left.
+No card surface. Two previews side by side, then a wide feature card for the odd last project (`.proj:last-child:nth-child(odd)` spans both columns, image `1.25fr` / text `1fr`, `16:9`). Stacks to one column at `720px`.
 
-- **Image flip:** hovering the image (`.shot`) turns it around (`rotateY(180deg)`, `.75s`). The back shows the role line and the description (and the feature list for Click to Borrow). Category and status tags, title and links stay on the card body.
-- **Flip button:** a round ↻ control (`.shot-turn`) in the image corner toggles `.is-flipped` for touch and keyboard. Clicking the image still opens the lightbox.
-- **Tags:** category pill (`Capstone ★`, `School Project`) first, then status pills (`Live system: Done`, `Redesign: Ongoing`).
-- **Links:** text rows, not filled buttons: label left, round arrow right, dashed rose divider above each. The primary link is bold rose, the secondary regular ink. On hover the row shifts `6px` and the arrow fills and turns `45°`.
-- Cards reveal on scroll (fade and rise) via `.has-reveal` / `.is-visible`.
+- **Preview (`.shot`):** square corners (`border-radius: 0`), `1px var(--line)` border, `aspect-ratio 16/11`, screenshot `object-fit: cover` anchored top-left. Shadow is a rose "print" offset (`10px 10px 0 -2px`, rose `24%`) plus `var(--shadow)`; on hover it settles (`translate(3px,3px)`, offset `5px`).
+- **Details on hover:** a rose-tinted panel slides up from the bottom edge of the preview (`translateY(102% → 0)`, `.5s`), max `78%` of the preview, square corners. It holds the role line, the description and (Click to Borrow) the feature list. Shown on `:hover`, `:focus` and `:focus-within`; `.shot` has `tabindex="0"` so keyboard users can reach it. The image also scales `1.04`.
+- **Not clickable:** screenshots do not open anything. There is no lightbox and no button on the preview.
+- **Below the preview:** title (Display 700, `clamp(1.7rem, 2.6vw, 2.2rem)`) with the tag pills on the right (`Capstone ★`, `Live system: Done`, `Redesign: Ongoing`; `School Project`), a one-line summary, then a dashed rose divider and the link row pinned to the bottom (`margin-top: auto`) so links align across cards.
+- **Links:** inline text with a `12px` round arrow; an underline grows on hover and the arrow fills and turns `45°`.
+- Cards still reveal on scroll via `.has-reveal` / `.is-visible`.
 
 ### Education, Contact
 Education: timeline of cards with a dashed rose line and dot markers. Contact: large rounded card with two rose radial washes, a clover watermark and icon links. See `css/style.css` sections 9 and 10.
@@ -99,7 +100,7 @@ Cards use `var(--shadow)`; project cards add `0 24px 44px -20px var(--work-glow)
 
 | Thing | Spec |
 | --- | --- |
-| Image flip | `750ms cubic-bezier(.2,.8,.2,1)` |
+| Details slide-up | `500ms cubic-bezier(.2,.8,.2,1)` |
 | Card reveal | `550ms`, staggered `120ms` |
 | Carousel | `32s` linear loop |
 | Key hover / press | `120ms` |
@@ -115,20 +116,34 @@ Cards use `var(--shadow)`; project cards add `0 24px 44px -20px var(--work-glow)
 | --- | --- |
 | `≤ 900px` | Hero stacks (copy, portrait, carousel) |
 | `≤ 820px` | Nav becomes a full-screen menu overlay |
-| `≤ 720px` | Project cards stack image over text, `6:5` image |
+| `≤ 720px` | Project grid becomes one column; the feature card stacks image over text |
 | `≤ 640px` | About stacks into one column |
 
-## 9. Accessibility
+## 9. Dark mode
+
+Dark is a separate charcoal-and-hot-pink palette, not a recolour of the navy it used before: near-black surface (`--bg #121014`, `--card #1A171D`), vivid pink accent `#FF5C9A`, soft white ink `#F6EEF2`, muted text `#BDB1BB`. The browser `theme-color` meta is `#121014` in dark (set in `js/script.js`). Everything that was a fixed light-pink value comes from tokens defined in both themes:
+
+| Token group | Light | Dark |
+| --- | --- | --- |
+| `--key-*` (toolkit keys, contact icon buttons) | pale pink gradient, white highlight, rose edges, brown text | plum gradient `#4F2440 → #2B1423`, soft pink highlight, near-black plum edges, `#FFD3E4` text |
+| `--deco-ribbon`, `--deco-bow` | rose `#D9587F` at 16% / 9% | pink `#FF5C9A` at 11% / 6% (bows 20%) |
+| `--curl` (carousel lines) | `#D9587F` | `#FF5C9A` |
+| `--work-cta-start/end` | `#E97899 → #C94970` | `#E0457F → #A8265A` |
+| `--clover-cap-*` | `#F7CBD6 / #EBA9BC` | `#4B2339 / #34192A` |
+
+Project screenshots are light UI captures and are shown as-is; the preview border, offset shadow and details panel follow the theme tokens. `--navy` is a leftover light-theme token and is unused in dark.
+
+## 10. Accessibility
 
 - Visible focus rings (`3px solid var(--rose-strong)`); never removed.
 - Decorative layers (`.about-deco`, ribbons, bows, carousel) are `aria-hidden` or pseudo-elements.
-- Hover-only behaviour has a keyboard/touch path (`.shot-turn`).
+- The project details panel shows on keyboard focus (`.shot` is focusable). Touch has no dedicated control; taps rely on sticky `:hover`.
 - Icon-only controls carry `aria-label`.
-- Check dark mode: the carousel text uses `--ink` and the rose lines use a fixed `#D9587F`; both should be re-verified after colour changes.
 
-## 10. Known gaps
 
-- The Click to Borrow card has empty space between its tag and its link (its feature list lives on the image back).
+## 11. Known gaps
+
+- Touch devices have no reliable way to open the project details.
 - Education and Contact have no per-section ribbon layers, only the page-wide one.
-- Dark mode and mobile have not been re-checked since the latest About, carousel and project-card changes.
+- Mobile has not been re-checked since the latest About, carousel and project-card changes.
 - `figma-tokens.json` still reflects the earlier design (card-based toolkit, 3-up project grid); update it when handing off to Figma.
