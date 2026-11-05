@@ -842,15 +842,10 @@ h2 {
   font-weight: 700;
 }
 
-/* The middle word of each trio is rose, so the line reads as a rhythm rather than one repeated block. */
-.track b:nth-of-type(3n + 2) {
-  color: var(--rose-strong);
-}
-
 .track i {
   flex: none;
   margin: 0 1.6rem;
-  color: var(--rose);
+  color: inherit;
   font-size: 1.1rem;
   font-style: normal;
   line-height: 1;
